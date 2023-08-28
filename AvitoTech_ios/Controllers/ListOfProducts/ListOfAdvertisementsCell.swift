@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ListOfAdvertisementsCell: UICollectionViewCell {
     
@@ -14,6 +15,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "placeholder")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 6
         imageView.clipsToBounds = true
@@ -24,6 +26,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
         label.numberOfLines = 2
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -32,6 +35,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 1
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +58,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         return label
     }()
     
-    var index = 2
+    let cache = ImageCache.default
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,8 +68,6 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         contentView.addSubview(price)
         contentView.addSubview(location)
         contentView.addSubview(createdDate)
-        imageView.backgroundColor = .systemGray5
-        
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
@@ -88,7 +90,6 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
             createdDate.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 5),
             createdDate.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             createdDate.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
         ])
     }
     
@@ -96,21 +97,19 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell() {
-        
-        let imageURLPath = "https://www.avito.st/s/interns-ios/images/\(index).png"
-        index += 1
-        let imageURL = URL(string: imageURLPath)!
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.imageView.image = image
+    func setupCell(from model: Items) {
+        let url = model.image_url
+        imageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.transition(.fade(0.5))]) { result in
+            switch result {
+            case .success(let image):
+                self.imageView.image = image.image
+            case .failure(let error):
+                print("Ошибка загрузки картинки: \(error)")
             }
         }
-    
+        titleLabel.text = model.title
+        price.text = model.price
+        location.text = model.location
+        createdDate.text = convertDate(from: model.created_date)
     }
-    
-    
 }
