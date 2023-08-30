@@ -8,7 +8,7 @@
 
 ### Экран списка товаров
 
-![](./Resources/Screens/IMG_8763.PNG)
+![](https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8763.PNG)
 
 ### Экран детальной карточки товара
 
