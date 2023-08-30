@@ -8,7 +8,7 @@
 
 ### Экран списка товаров
 
-![](AvitoTech/Resources/Screens/IMG_8763.PNG)
+![](./Resources/Screens/IMG_8763.PNG)
 
 ### Экран детальной карточки товара
 
