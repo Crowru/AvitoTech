@@ -30,8 +30,8 @@ final class AdvertisementsDetailsPresenter: AdvertisementsDetailsPresenterProtoc
             guard let self else { return }
             switch result {
             case.success(let data):
-                self.detail = data
                 self.viewState.value = .loaded
+                self.detail = data
             case.failure(let error):
                 self.viewState.value = .error(message: "fetchDetailInfo \(error.localizedDescription)")
             }

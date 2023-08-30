@@ -29,6 +29,17 @@
 		2A6C72642A9E474700789868 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6C72632A9E474700789868 /* ProgressHUD */; };
 		2A6C72662A9E477B00789868 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C72652A9E477B00789868 /* UIBlockingProgressHUD.swift */; };
 		2A6C72682A9F382000789868 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C72672A9F382000789868 /* Alert.swift */; };
+		2A89828E2A9F5A7100268D03 /* Aeroport-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A8982892A9F5A7100268D03 /* Aeroport-Light.ttf */; };
+		2A8982902A9F5A7100268D03 /* Aeroport.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A89828B2A9F5A7100268D03 /* Aeroport.ttf */; };
+		2A8982912A9F5A7100268D03 /* Aeroport-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A89828C2A9F5A7100268D03 /* Aeroport-Bold.ttf */; };
+		2A8982922A9F5A7100268D03 /* Aeroport-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A89828D2A9F5A7100268D03 /* Aeroport-Medium.ttf */; };
+		2A8982942A9F62AF00268D03 /* FormatPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8982932A9F62AF00268D03 /* FormatPrice.swift */; };
+		2A8982962A9F736000268D03 /* ConnectedToNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8982952A9F736000268D03 /* ConnectedToNetwork.swift */; };
+		2A89829D2A9FA19100268D03 /* IMG_8766.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 2A8982982A9FA19000268D03 /* IMG_8766.PNG */; };
+		2A89829E2A9FA19100268D03 /* IMG_8765.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 2A8982992A9FA19000268D03 /* IMG_8765.PNG */; };
+		2A89829F2A9FA19100268D03 /* IMG_8763.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 2A89829A2A9FA19000268D03 /* IMG_8763.PNG */; };
+		2A8982A02A9FA19100268D03 /* IMG_8764.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 2A89829B2A9FA19100268D03 /* IMG_8764.PNG */; };
+		2A8982A12A9FA19100268D03 /* IMG_8762.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 2A89829C2A9FA19100268D03 /* IMG_8762.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +65,17 @@
 		2A6C72602A9E45E200789868 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		2A6C72652A9E477B00789868 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		2A6C72672A9F382000789868 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		2A8982892A9F5A7100268D03 /* Aeroport-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeroport-Light.ttf"; sourceTree = "<group>"; };
+		2A89828B2A9F5A7100268D03 /* Aeroport.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aeroport.ttf; sourceTree = "<group>"; };
+		2A89828C2A9F5A7100268D03 /* Aeroport-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeroport-Bold.ttf"; sourceTree = "<group>"; };
+		2A89828D2A9F5A7100268D03 /* Aeroport-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeroport-Medium.ttf"; sourceTree = "<group>"; };
+		2A8982932A9F62AF00268D03 /* FormatPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatPrice.swift; sourceTree = "<group>"; };
+		2A8982952A9F736000268D03 /* ConnectedToNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedToNetwork.swift; sourceTree = "<group>"; };
+		2A8982982A9FA19000268D03 /* IMG_8766.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_8766.PNG; sourceTree = "<group>"; };
+		2A8982992A9FA19000268D03 /* IMG_8765.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_8765.PNG; sourceTree = "<group>"; };
+		2A89829A2A9FA19000268D03 /* IMG_8763.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_8763.PNG; sourceTree = "<group>"; };
+		2A89829B2A9FA19100268D03 /* IMG_8764.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_8764.PNG; sourceTree = "<group>"; };
+		2A89829C2A9FA19100268D03 /* IMG_8762.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_8762.PNG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +145,8 @@
 				2A6C72562A9D2C6600789868 /* Configuration.swift */,
 				2A3C27012A97855500BC2E19 /* LaunchScreen.storyboard */,
 				2A3C26FF2A97855500BC2E19 /* Assets.xcassets */,
+				2A8982882A9F59FB00268D03 /* Fonts */,
+				2A8982972A9FA16800268D03 /* Screens */,
 				2A3C27042A97855500BC2E19 /* Info.plist */,
 			);
 			path = Resources;
@@ -150,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				2A5C31462A9BDDE50076D00D /* ListOfAdvertisementsService.swift */,
+				2A8982952A9F736000268D03 /* ConnectedToNetwork.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -162,6 +187,7 @@
 				2A6C725E2A9E458F00789868 /* Observable.swift */,
 				2A6C72652A9E477B00789868 /* UIBlockingProgressHUD.swift */,
 				2A6C72672A9F382000789868 /* Alert.swift */,
+				2A8982932A9F62AF00268D03 /* FormatPrice.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -175,6 +201,29 @@
 				2A6C72602A9E45E200789868 /* ViewState.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2A8982882A9F59FB00268D03 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2A89828C2A9F5A7100268D03 /* Aeroport-Bold.ttf */,
+				2A8982892A9F5A7100268D03 /* Aeroport-Light.ttf */,
+				2A89828D2A9F5A7100268D03 /* Aeroport-Medium.ttf */,
+				2A89828B2A9F5A7100268D03 /* Aeroport.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2A8982972A9FA16800268D03 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2A89829C2A9FA19100268D03 /* IMG_8762.PNG */,
+				2A89829A2A9FA19000268D03 /* IMG_8763.PNG */,
+				2A89829B2A9FA19100268D03 /* IMG_8764.PNG */,
+				2A8982992A9FA19000268D03 /* IMG_8765.PNG */,
+				2A8982982A9FA19000268D03 /* IMG_8766.PNG */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,8 +292,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A89829D2A9FA19100268D03 /* IMG_8766.PNG in Resources */,
 				2A3C27032A97855500BC2E19 /* LaunchScreen.storyboard in Resources */,
+				2A8982A12A9FA19100268D03 /* IMG_8762.PNG in Resources */,
+				2A8982922A9F5A7100268D03 /* Aeroport-Medium.ttf in Resources */,
 				2A3C27002A97855500BC2E19 /* Assets.xcassets in Resources */,
+				2A8982912A9F5A7100268D03 /* Aeroport-Bold.ttf in Resources */,
+				2A89829F2A9FA19100268D03 /* IMG_8763.PNG in Resources */,
+				2A8982A02A9FA19100268D03 /* IMG_8764.PNG in Resources */,
+				2A89829E2A9FA19100268D03 /* IMG_8765.PNG in Resources */,
+				2A8982902A9F5A7100268D03 /* Aeroport.ttf in Resources */,
+				2A89828E2A9F5A7100268D03 /* Aeroport-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +331,8 @@
 				2A3C26F92A97855200BC2E19 /* SceneDelegate.swift in Sources */,
 				2A5C31492A9BE1340076D00D /* Error+Extention.swift in Sources */,
 				2A6C72472A9D0B9D00789868 /* Date+Extention.swift in Sources */,
+				2A8982962A9F736000268D03 /* ConnectedToNetwork.swift in Sources */,
+				2A8982942A9F62AF00268D03 /* FormatPrice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,9 +34,8 @@ final class ListOfAdvertisementsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
-        observeAdvertisements()
-        observeViewState()
+        view.backgroundColor = .white
+        checkInternetHandler()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +48,18 @@ final class ListOfAdvertisementsViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.navigationBar.prefersLargeTitles = false
             self.navigationController?.navigationBar.layoutIfNeeded()
+        }
+    }
+    
+    private func checkInternetHandler() {
+        if ConnectedToNetwork.isConnectedToNetwork() {
+            setupCollectionView()
+            observeAdvertisements()
+            observeViewState()
+        } else {
+            self.presentErrorAlert(message: "Нет соединения с интернетом", retryHandler: {
+                self.checkInternetHandler()
+            })
         }
     }
     
@@ -91,13 +102,14 @@ final class ListOfAdvertisementsViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = .white
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
-            .font: UIFont.boldSystemFont(ofSize: 17)
+            .font: UIFont(name: "Aeroport-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
+            
         ]
         navigationController?.navigationBar.titleTextAttributes = attributes
         
         let largeTitleAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
-            .font: UIFont.boldSystemFont(ofSize: 34)
+            .font: UIFont(name: "Aeroport-Bold", size: 34) ?? UIFont.systemFont(ofSize: 34, weight: .bold)
         ]
         self.navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttributes
         collectionView.backgroundColor = .white

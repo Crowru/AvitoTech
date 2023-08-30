@@ -24,7 +24,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.numberOfLines = 2
         label.textColor = .black
         return label
@@ -32,7 +32,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     
     private let price: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont(name: "Aeroport-Bold", size: 16)
         label.numberOfLines = 1
         label.textColor = .black
         return label
@@ -40,7 +40,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     
     private let location: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont(name: "Aeroport", size: 12)
         label.textColor = .darkGray
         label.numberOfLines = 1
         return label
@@ -48,7 +48,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     
     private let createdDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont(name: "Aeroport-Light", size: 12)
         label.textColor = .darkGray
         label.numberOfLines = 1
         return label
@@ -107,7 +107,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
             }
         }
         titleLabel.text = model.title
-        price.text = model.price
+        price.text = formatPrice(model.price)
         location.text = model.location
         createdDate.text = convertDate(from: model.created_date)
     }

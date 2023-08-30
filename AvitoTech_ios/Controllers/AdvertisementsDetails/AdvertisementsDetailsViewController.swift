@@ -18,7 +18,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let price: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.font = UIFont(name: "Aeroport-Bold", size: 30)
         label.numberOfLines = 1
         label.textColor = .black
         return label
@@ -26,7 +26,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont(name: "Aeroport-Bold", size: 15)
         label.numberOfLines = 5
         label.textColor = .black
         return label
@@ -34,7 +34,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let location: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.numberOfLines = 0
         label.textColor = .black
         return label
@@ -42,7 +42,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let phoneNumber: UITextView = {
         let label = UITextView()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.textColor = .black
         label.backgroundColor = .clear
         label.isEditable = false
@@ -51,7 +51,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let email: UITextView = {
         let label = UITextView()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.textColor = .black
         label.backgroundColor = .clear
         label.isEditable = false
@@ -60,7 +60,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        label.font = UIFont(name: "Aeroport-Bold", size: 25)
         label.numberOfLines = 0
         label.textColor = .black
         return label
@@ -68,7 +68,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let descriptionText: UITextView = {
         let label = UITextView()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.textColor = .black
         label.backgroundColor = .clear
         label.isEditable = false
@@ -77,7 +77,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     private let createdDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.font = UIFont(name: "Aeroport-Light", size: 13)
         label.textColor = .darkGray
         label.numberOfLines = 0
         return label
@@ -97,8 +97,21 @@ final class AdvertisementsDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        observeViewState()
+        view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = UIColor.black
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        checkInternetHandler()
+    }
+    
+    private func checkInternetHandler() {
+        if ConnectedToNetwork.isConnectedToNetwork() {
+            setupView()
+            observeViewState()
+        } else {
+            self.presentErrorAlert(message: "Нет соединения с интернетом", retryHandler: {
+                self.checkInternetHandler()
+            })
+        }
     }
     
     private func observeViewState() {
@@ -117,6 +130,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
                     print(error)
                     self.presentErrorAlert(message: "Потеряно соединение с интернетом", retryHandler: {
                         self.presenter.fetchDetailInfo()
+                        self.checkInternetHandler()
                     })
                 }
             case nil: break
@@ -131,17 +145,13 @@ final class AdvertisementsDetailsViewController: UIViewController {
             view.addSubview($0)
         }
         
-        view.backgroundColor = .white
-        navigationController?.navigationBar.tintColor = UIColor.black
-        navigationController?.navigationBar.topItem?.backButtonTitle = ""
-        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: view.bounds.width),
             
-            price.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15),
+            price.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             price.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             price.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             
@@ -156,12 +166,12 @@ final class AdvertisementsDetailsViewController: UIViewController {
             phoneNumber.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 5),
             phoneNumber.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             phoneNumber.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            phoneNumber.heightAnchor.constraint(equalToConstant: 35),
+            phoneNumber.heightAnchor.constraint(equalToConstant: 40),
             
             email.topAnchor.constraint(equalTo: phoneNumber.bottomAnchor, constant: 0),
             email.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             email.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            email.heightAnchor.constraint(equalToConstant: 35),
+            email.heightAnchor.constraint(equalToConstant: 40),
             
             descriptionLabel.topAnchor.constraint(equalTo: email.bottomAnchor, constant: 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
@@ -195,7 +205,7 @@ final class AdvertisementsDetailsViewController: UIViewController {
         }
         
         titleLabel.text = detail.title
-        price.text = detail.price
+        price.text = formatPrice(detail.price)
         location.text = "\(detail.location), \(detail.address)"
         email.text = detail.email
         phoneNumber.text = detail.phone_number
