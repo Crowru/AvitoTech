@@ -6,8 +6,11 @@
 
 ## Скриншоты
 
-![](https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8763.PNG){:width="200px"}
-
+<img src="https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8763.PNG" width="200">
+<img src="https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8762.PNG" width="200">
+<img src="https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8764.PNG" width="200">
+<img src="https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8765.PNG" width="200">
+<img src="https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8766.PNG" width="200">
 
 ## Установка и запуск
 
