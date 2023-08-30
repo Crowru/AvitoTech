@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AdvertisementsDetails: Decodable {
+struct AdvertisementsDetails: Codable {
     let id: String
     let title: String
     let price: String

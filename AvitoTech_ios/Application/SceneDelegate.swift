@@ -14,8 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let listOfProducts = AdvertisementsFactory.makeListOfProducts()
-        let rootVC = UINavigationController(rootViewController: listOfProducts)
+        
+        let listOfProductsService = ListOfAdvertisementsService.shared
+        let presenter = ListOfAdvertisementsPresenter(listOfProductsService: listOfProductsService)
+        let listOfAdvertisementsViewController = ListOfAdvertisementsViewController(presenter: presenter)
+        
+        let rootVC = UINavigationController(rootViewController: listOfAdvertisementsViewController)
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
     }

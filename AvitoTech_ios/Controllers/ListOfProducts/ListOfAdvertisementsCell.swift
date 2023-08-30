@@ -9,65 +9,60 @@ import UIKit
 import Kingfisher
 
 final class ListOfAdvertisementsCell: UICollectionViewCell {
-    
     static let identifier = "AdvertisementCell"
     
-    let imageView: UIImageView = {
+    private let cache = ImageCache.default
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "placeholder")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 6
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
         label.numberOfLines = 2
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let price: UILabel = {
+    private let price: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 1
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let location: UILabel = {
+    private let location: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .light)
         label.textColor = .darkGray
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let createdDate: UILabel = {
+    private let createdDate: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .light)
         label.textColor = .darkGray
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let cache = ImageCache.default
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
         
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(price)
-        contentView.addSubview(location)
-        contentView.addSubview(createdDate)
+        [imageView, titleLabel, price, location, createdDate].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
@@ -95,6 +90,10 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        imageView.kf.cancelDownloadTask()
     }
     
     func setupCell(from model: Items) {

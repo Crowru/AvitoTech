@@ -7,26 +7,10 @@
 
 import UIKit
 
-final class ListOfAdvertisementsViewController: UIViewController & ListOfAdvertisementsViewControllerProtocol {
-    var presenter: ListOfAdvertisementsPresenterProtocol?
-    
-    
-    func reloadCollectionView() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    init(presenter: ListOfAdvertisementsPresenterProtocol?) {
-        super.init(nibName: nil, bundle: nil)
-        self.presenter = presenter
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+final class ListOfAdvertisementsViewController: UIViewController {
     private let params = GeometryParams(cellCount: 2, leftInset: 15, rightInset: 15, cellSpacing: 10)
-        
+    
+    var presenter: ListOfAdvertisementsPresenter
     var listOfProductsService = ListOfAdvertisementsService.shared
     
     private lazy var collectionView: UICollectionView = {
@@ -38,10 +22,21 @@ final class ListOfAdvertisementsViewController: UIViewController & ListOfAdverti
         return collectionView
     }()
     
+    init(presenter: ListOfAdvertisementsPresenter) {
+        self.presenter = presenter
+        self.presenter.getData()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.getData()
         setupCollectionView()
+        observeAdvertisements()
+        observeViewState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,11 +52,57 @@ final class ListOfAdvertisementsViewController: UIViewController & ListOfAdverti
         }
     }
     
+    private func observeViewState() {
+        self.presenter.viewState.bind { state in
+            switch state {
+            case .loading:
+                UIBlockingProgressHUD.show()
+            case .loaded:
+                break
+            case .error(let error):
+                DispatchQueue.main.async {
+                    UIBlockingProgressHUD.dismiss()
+                    print(error)
+                    self.presentErrorAlert(message: "Потеряно соединение с интернетом", retryHandler: {
+                        self.presenter.getData()
+                    })
+                }
+            case nil: break
+            case .some(.none): break
+            }
+        }
+    }
+    
+    private func observeAdvertisements() {
+        presenter.items.bind { [weak self] _ in
+            guard let self = self else { return }
+            
+            if self.presenter.items.value?.isEmpty == false {
+                DispatchQueue.main.async {
+                    UIBlockingProgressHUD.dismiss()
+                    self.collectionView.reloadData()
+                    self.navigationItem.title = "Товары"
+                }
+            }
+        }
+    }
+    
     private func setupCollectionView() {
         navigationController?.navigationBar.barTintColor = .white
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont.boldSystemFont(ofSize: 17)
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        
+        let largeTitleAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont.boldSystemFont(ofSize: 34)
+        ]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttributes
         collectionView.backgroundColor = .white
         collectionView.indicatorStyle = .black
-        navigationItem.title = "Товары"
+        
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -72,22 +113,25 @@ final class ListOfAdvertisementsViewController: UIViewController & ListOfAdverti
     }
 }
 
+// MARK: UICollectionViewDelegate
 extension ListOfAdvertisementsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListOfAdvertisementsCell.identifier, for: indexPath) as? ListOfAdvertisementsCell, let item = presenter?.items?[indexPath.row] else { return }
-        navigationController?.pushViewController(AdvertisementsDetailsViewController(), animated: true)
+        guard let detailId = presenter.items.value?[indexPath.row].id else { return }
+        let service = ListOfAdvertisementsService.shared
+        let detailViewController = AdvertisementsDetailsViewController(service: service, detailId: detailId)
+        navigationController?.pushViewController(detailViewController , animated: true)
     }
 }
 
 // MARK: UICollectionViewDataSource
 extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let countOfProducts = presenter?.items?.count else { return 0 }
+        guard let countOfProducts = presenter.items.value?.count else { return 0 }
         return countOfProducts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListOfAdvertisementsCell.identifier, for: indexPath) as? ListOfAdvertisementsCell, let item = presenter?.items?[indexPath.row] else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListOfAdvertisementsCell.identifier, for: indexPath) as? ListOfAdvertisementsCell, let item = presenter.items.value?[indexPath.row] else { return UICollectionViewCell() }
         cell.setupCell(from: item)
         return cell
     }
