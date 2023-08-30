@@ -6,11 +6,7 @@
 
 ## Скриншоты
 
-### Экран списка товаров
-
-![](https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8763.PNG)
-
-### Экран детальной карточки товара
+![](https://github.com/Crowru/AvitoTech/blob/develop/AvitoTech_ios/Resources/Screens/IMG_8763.PNG){:width="200px"}
 
 
 ## Установка и запуск
