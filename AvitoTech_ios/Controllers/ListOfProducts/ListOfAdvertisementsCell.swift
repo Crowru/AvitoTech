@@ -9,65 +9,60 @@ import UIKit
 import Kingfisher
 
 final class ListOfAdvertisementsCell: UICollectionViewCell {
-    
     static let identifier = "AdvertisementCell"
     
-    let imageView: UIImageView = {
+    private let cache = ImageCache.default
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "placeholder")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 6
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.font = UIFont(name: "Aeroport", size: 15)
         label.numberOfLines = 2
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let price: UILabel = {
+    private let price: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont(name: "Aeroport-Bold", size: 16)
         label.numberOfLines = 1
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let location: UILabel = {
+    private let location: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont(name: "Aeroport", size: 12)
         label.textColor = .darkGray
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let createdDate: UILabel = {
+    private let createdDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont(name: "Aeroport-Light", size: 12)
         label.textColor = .darkGray
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let cache = ImageCache.default
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
         
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(price)
-        contentView.addSubview(location)
-        contentView.addSubview(createdDate)
+        [imageView, titleLabel, price, location, createdDate].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
@@ -97,6 +92,10 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        imageView.kf.cancelDownloadTask()
+    }
+    
     func setupCell(from model: Items) {
         let url = model.image_url
         imageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.transition(.fade(0.5))]) { result in
@@ -108,7 +107,7 @@ final class ListOfAdvertisementsCell: UICollectionViewCell {
             }
         }
         titleLabel.text = model.title
-        price.text = model.price
+        price.text = formatPrice(model.price)
         location.text = model.location
         createdDate.text = convertDate(from: model.created_date)
     }

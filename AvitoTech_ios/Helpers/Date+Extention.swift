@@ -29,3 +29,13 @@ extension UICollectionViewCell {
         return formattedDate
     }
 }
+
+extension UIViewController {
+    func convertDate(from date: String) -> String {
+        var formattedDate = ""
+        if let date = inputDateFormatter.date(from: date) {
+            formattedDate = outputDateFormatter.string(from: date)
+        }
+        return formattedDate
+    }
+}

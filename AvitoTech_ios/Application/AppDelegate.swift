@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import ProgressHUD
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ProgressHUD.animationType = .systemActivityIndicator
+        ProgressHUD.colorAnimation = .lightGray
         return true
     }
 
@@ -23,6 +27,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configuration.delegateClass = SceneDelegate.self
         return configuration
     }
-
 }
-

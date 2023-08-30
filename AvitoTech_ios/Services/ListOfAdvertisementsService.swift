@@ -7,15 +7,19 @@
 
 import UIKit
 
+protocol ListOfAdvertisementsServiceProtocol {
+    func fetchListAdvertisements(completion: @escaping (Result<[Items], Error>) -> Void)
+    func fetchDetailAdvertisement(id: String, completion: @escaping (Result<AdvertisementsDetails, Error>) -> Void)
+}
+
 final class ListOfAdvertisementsService: ListOfAdvertisementsServiceProtocol {
-    
     static let shared = ListOfAdvertisementsService()
     private let urlSession = URLSession.shared
     private let configuration = AuthConfiguration.standard
     
     private(set) var advertisements: [Advertisements]?
-    
     private var currentTask: URLSessionTask?
+    
     private init() {}
     
     func fetchListAdvertisements(completion: @escaping (Result<[Items], Error>) -> Void) {
